@@ -12,10 +12,11 @@ import java.util.Map;
 
 public class CartPage {
     private static final Map<Items, By> CART_ITEMS_IDS = Map.of(
-            //Items.BACKPACK, By.ById.id("remove-sauce-labs-backpack"),
+            Items.BACKPACK, By.ById.id("remove-sauce-labs-backpack"),
             Items.BIKE_LIGHT, By.ById.id("remove-sauce-labs-bike-light"),
             Items.BOLT_TSHIRT, By.ById.id("remove-sauce-labs-bolt-t-shirt"),
-            Items.FLEECE_JACKET, By.ById.id("remove-sauce-labs-fleece-jacket")
+            Items.FLEECE_JACKET, By.ById.id("remove-sauce-labs-fleece-jacket"),
+            Items.SAUCE_ONESIE, By.ById.id("remove-sauce-labs-onesie")
     );
 
     private final WebDriver driver;
@@ -53,7 +54,6 @@ public class CartPage {
                     }
                 }
             } catch (NoSuchElementException e) {
-                // Ignorar si no se encuentra el elemento
                 System.out.println("Elemento no encontrado en el carrito: " + cartItem);
             }
         }
@@ -73,4 +73,10 @@ public class CartPage {
         }
         return prices;
     }
+
+    public void removeItemFromCart(List<Items> items) {
+        items.forEach(itemToRemove -> driver.findElement(CART_ITEMS_IDS.get(itemToRemove)).click());
+    }
+
+//    public boolean
 }

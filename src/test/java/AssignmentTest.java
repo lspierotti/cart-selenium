@@ -8,7 +8,7 @@ import pages.LoginPage;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AssignmentTest {
 
@@ -38,7 +38,7 @@ public class AssignmentTest {
         homePage.addItemsToCart(List.of(Items.BIKE_LIGHT, Items.BOLT_TSHIRT, Items.FLEECE_JACKET));
 
         CartPage cartPage = homePage.goToCart();
-        cartPage.getItemsAdded();
+        //cartPage.getItemsAdded();
         List<Items> itemsInCart = cartPage.getItemsAdded();
 
 
@@ -57,12 +57,39 @@ public class AssignmentTest {
 
         assertEquals(totalPrice, totalPriceCart);
 
+        // Punto 5
 
+        cartPage.removeItemFromCart(List.of(Items.BIKE_LIGHT));
+        itemsInCart = cartPage.getItemsAdded();
+
+        // Punto 6
+        assertFalse(itemsInCart.contains(Items.BIKE_LIGHT), "El elemento BIKE_LIGHT todavía está en el carrito");
         Thread.sleep(6000);
 
+        // Punto 7
 
+        homePage = cartPage.contineShopping();
+        Double totalPriceProductsRemoved = homePage.getPriceOfProductsRemoved(List.of(Items.BIKE_LIGHT));
+        cartPage = homePage.goToCart();
+        totalPriceCart = cartPage.getTotalPrice();
+        assertEquals(totalPrice-totalPriceProductsRemoved, totalPriceCart);
 
+        // Punto 8 Y 9
 
+        homePage = cartPage.contineShopping();
+        homePage.addItemsToCart(List.of(Items.SAUCE_ONESIE));
+        cartPage = homePage.goToCart();
+        itemsInCart = cartPage.getItemsAdded();
+
+        assertTrue(itemsInCart.contains(Items.SAUCE_ONESIE), "El elemento SAUCE ONESIE está en el carrito");
+
+        // PUNTO 10
+        homePage = cartPage.contineShopping();
+        totalPrice = homePage.getPriceOfProductAdded(List.of(Items.BOLT_TSHIRT, Items.FLEECE_JACKET, Items.SAUCE_ONESIE));
+        cartPage = homePage.goToCart();
+        totalPriceCart = cartPage.getTotalPrice();
+
+        assertEquals(totalPrice, totalPriceCart);
         driver.quit();
     }
 }

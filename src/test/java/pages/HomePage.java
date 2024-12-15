@@ -14,7 +14,8 @@ public class HomePage {
             Items.BACKPACK, By.ById.id("add-to-cart-sauce-labs-backpack"),
             Items.BIKE_LIGHT, By.ById.id("add-to-cart-sauce-labs-bike-light"),
             Items.BOLT_TSHIRT, By.ById.id("add-to-cart-sauce-labs-bolt-t-shirt"),
-            Items.FLEECE_JACKET, By.ById.id("add-to-cart-sauce-labs-fleece-jacket")
+            Items.FLEECE_JACKET, By.ById.id("add-to-cart-sauce-labs-fleece-jacket"),
+            Items.SAUCE_ONESIE, By.ById.id("add-to-cart-sauce-labs-onesie")
             );
     private final WebDriver driver;
     private static final By CART_BUTTON_CLASS = By.ByClassName.className("shopping_cart_link");
@@ -45,7 +46,6 @@ public class HomePage {
             WebElement parentDiv = element.findElement(By.xpath("./ancestor::div[contains(@class, 'pricebar')]"));
             String priceElement = parentDiv.findElement(By.className("inventory_item_price")).getText();
             double price = Double.parseDouble(priceElement.replace("$", ""));
-            //element.findElement(By.xpath("./ancestor::div[contains(@class, 'pricebar')]")).findElement(By.className("inventory_item_price")).getText()
 
             totalPrice = totalPrice + price;
 
@@ -53,7 +53,18 @@ public class HomePage {
         return totalPrice;
     }
 
+    public Double getPriceOfProductsRemoved(List<Items> items) {
+        double totalPrice = 0.0;
 
+        for (Items item : items) {
+            WebElement element = driver.findElement(ITEMS_IDS.get(item));
+            WebElement parentDiv = element.findElement(By.xpath("./ancestor::div[contains(@class, 'pricebar')]"));
+            String priceElement = parentDiv.findElement(By.className("inventory_item_price")).getText();
+            double price = Double.parseDouble(priceElement.replace("$", ""));
 
+            totalPrice = totalPrice + price;
 
+        }
+        return totalPrice;
+    }
 }
