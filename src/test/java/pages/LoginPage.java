@@ -18,7 +18,6 @@ public class LoginPage {
         driver.findElement(USER_NAME_ID).sendKeys(user);
         driver.findElement(PASSWORD_ID).sendKeys(password);
         driver.findElement(BUTTON_LOGIN_ID).click();
-        //log.
         return new HomePage(driver);
     }
 }
