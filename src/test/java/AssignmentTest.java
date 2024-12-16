@@ -8,6 +8,7 @@ import pages.LoginPage;
 
 import java.util.List;
 
+import static model.Constants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AssignmentTest {
@@ -28,13 +29,14 @@ public class AssignmentTest {
         // 9. Confirm that the item is added to the cart
         // 10. Confirm that the total price of the items in the cart is correct
         // Extra credit: Generate a report of the JUnit tests. You can use the plugin maven-surefire-report-plugin (for example) to generate a report.
+        // mvn test surefire-report:report
 
         WebDriver driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
+        driver.get(URL_APP);
         //Login as user:standard_user/pwd:secret_sauce
         // Write your code here
 
-        HomePage homePage = new LoginPage(driver).login("standard_user","secret_sauce");
+        HomePage homePage = new LoginPage(driver).login(USERNAME,PASSWORD);
         homePage.addItemsToCart(List.of(Items.BIKE_LIGHT, Items.BOLT_TSHIRT, Items.FLEECE_JACKET));
 
         CartPage cartPage = homePage.goToCart();
