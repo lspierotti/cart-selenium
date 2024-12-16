@@ -46,7 +46,7 @@ public class AssignmentTest {
         assertEquals(
                 List.of(Items.BIKE_LIGHT, Items.BOLT_TSHIRT, Items.FLEECE_JACKET),
                 itemsInCart,
-                "Los elementos en el carrito no coinciden con los esperados."
+                "The elements in the cart does not match."
         );
 
         // Punto 4
@@ -63,7 +63,7 @@ public class AssignmentTest {
         itemsInCart = cartPage.getItemsAdded();
 
         // Punto 6
-        assertFalse(itemsInCart.contains(Items.BIKE_LIGHT), "El elemento BIKE_LIGHT todavía está en el carrito");
+        assertFalse(itemsInCart.contains(Items.BIKE_LIGHT), "The BIKE_LIGHT is still in the cart");
         Thread.sleep(6000);
 
         // Punto 7
